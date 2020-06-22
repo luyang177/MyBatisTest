@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mappers.BlogMapper">
+    <select id="selectBlog" resultType="DAO.Blog">
+        select * from Blog where id = #{id}
+    </select>
+    <insert id="insertBlog" parameterType="DAO.Blog">
+        insert into Blog (name) values (#{name})
+    </insert>
+    <update id="updateBlog">
+        update Blog set
+        name = #{name}
+        where id = #{id}
+    </update>
+    <delete id="deleteBlog">
+        delete from Blog where id = #{id}
+    </delete>
+
+    <insert id="insertBlogProc" parameterType="DAO.Blog" statementType="CALLABLE">
+        {call SProc_Save(#{name,mode=IN})}
+    </insert>
+    <select id="getBlogProc" resultType="DAO.Blog" statementType="CALLABLE">
+        {call SProc_Select()}
+    </select>
+</mapper>
